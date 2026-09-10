@@ -1,4 +1,4 @@
-# ITE College West Weather Dashboard
+# ITE College West Weather & Outdoor Work Dashboard
 
 A browser-based weather and outdoor-work decision-support dashboard for ITE College West. The dashboard retrieves environmental data from data.gov.sg real-time APIs and presents weather conditions, safety status, data integrity, API health, and operational advisories through GitHub Pages.
 
