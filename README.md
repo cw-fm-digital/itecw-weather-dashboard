@@ -1,403 +1,358 @@
 # ITE College West Weather & Outdoor Work Dashboard
 
-A browser-based weather and outdoor-work decision-support dashboard for ITE College West. The dashboard retrieves environmental data from data.gov.sg real-time APIs and presents weather conditions, safety status, data integrity, API health, and operational advisories through GitHub Pages.
+Version: 1.6.5a RC1
 
-## Current Release
-
-- **Version:** 1.5.7
-- **Release:** Operational Awareness Enhancement
-- **Status:** Deployment candidate
-- **Site region:** West
-- **Forecast mapping:** Choa Chu Kang, then Tengah
-- **Refresh interval:** 5 minutes
-- **Display timezone:** Singapore Time
+Release Name:
+Pilot Release Candidate
 
 ## Purpose
 
-The dashboard supports monitoring and planning for:
+This dashboard provides live weather intelligence and outdoor work decision support for ITE College West.
 
-- Outdoor maintenance
-- Roof work
-- Work at height
-- Landscaping and external cleaning
-- Open-field activities
-- Outdoor events and sports
-- Contractor work planning
-- Weather-related operational reviews
+The dashboard consolidates:
 
-The dashboard is a decision-support display. It does not replace approved risk assessments, work procedures, Work Authorisations, Permits-to-Work, official lightning alerts, emergency plans, or supervisor instructions.
-
-## Key Features
-
-### Live Weather and Environmental Data
-
-- Wet Bulb Globe Temperature (WBGT)
-- Heat stress classification
-- Singapore-wide lightning observations
-- 24-hour PSI for the West region
-- Air temperature
-- Relative humidity
+- MSS Lightning
+- WBGT
+- Temperature
+- Relative Humidity
 - Rainfall
-- 2-hour weather forecast
+- PSI (West Region)
+- 2-Hour Forecast
 
-### Fixed-Site Data Selection
+The objective is to support:
 
-- PSI fixed to the West region
-- Forecast restricted to Choa Chu Kang and Tengah
-- No fallback to an unrelated forecast area
-- Temperature, humidity, and rainfall selected from the nearest available West-region station
-- Station name, station identifier, approximate distance, and region displayed where available
+- Outdoor work planning
+- Facilities Management operations
+- Grounds maintenance
+- Sports activities
+- Campus events
+- Contractor management
+- EHS monitoring
+- Emergency preparedness
 
-### Safety Decision Support
+The dashboard is a decision-support tool and does not replace:
 
-- Green, Amber, Red, Hazardous, and Unknown states
-- Outdoor Work Advisory
-- Lightning-specific alert and advisory
-- Hazardous air-quality alert and advisory
-- Heat stress risk
-- Lightning risk
-- Air-quality risk
-- Weather risk
-- Overall risk matrix
+- Approved risk assessments
+- Work Authorisation controls
+- Permit-to-Work requirements
+- MSS Lightning Alerts
+- Supervisor instructions
+- Emergency response procedures
 
-### Operational Awareness
+---
 
-- Initialising state
-- Refreshing state
-- Healthy state
-- Degraded state
-- API status labels and icons
-- Mapping Unavailable forecast status
-- Dashboard health summary
-- Footer dashboard status
-- Manual Refresh Now button
-- Last successful update time
-- Next scheduled refresh time
+# Current Release
 
-### Reliability Controls
+Version:
+1.6.5a RC1
 
-- Five-minute automatic refresh
-- Staggered API requests
-- HTTP 429 rate-limit handling
-- Failed-metric cleanup
-- Grey unavailable-data indicators
-- Live Data Incomplete protection
-- Queued refresh protection
-- `try/finally` refresh recovery
-- Retention of clear API status information
-- Manual-refresh locking during an active refresh
+Release Status:
+Pilot Release Candidate
 
-## Safety Logic
+---
 
-### Lightning Detected
+# Major Features
 
-Triggered when the lightning API returns one or more observation records.
+## Campus-Aware Data Selection
 
-Dashboard response:
+Reference Location:
 
-- Blinking lightning icon
-- Blinking lightning count
-- Blinking main banner
-- `LIGHTNING DETECTED` banner
-- Red overall risk
-- Lightning-specific Outdoor Work Advisory
+ITE College West
 
-Advisory actions:
+Latitude:
+1.3764369
 
-- Suspend roof works
-- Suspend open-field activities
-- Suspend outdoor sports and events
-- Move personnel to shelter
-- Follow site lightning safety procedures
+Longitude:
+103.7523055
 
-> **Important:** The lightning count represents Singapore-wide observations returned by the API. It is not distance-filtered for ITE College West and is not a campus-specific lightning warning. Continue to use approved official lightning alerts and site procedures.
-
-### Hazardous Air Quality
-
-Triggered when:
-
-- PSI is above 300
-
-Dashboard response:
-
-- `HAZARDOUS AIR QUALITY` banner
-- Hazardous air-quality advisory
-
-Advisory actions:
-
-- Minimise outdoor activity
-- Avoid prolonged outdoor exposure
-- Review non-essential outdoor work
-- Consider indoor alternatives
-- Monitor official haze advisories
-
-### Red: Stop Work / Review Activities
-
-Triggered when any of the following applies:
-
-- Lightning observations are greater than 0
-- WBGT is 32 degrees Celsius or above
-- PSI is above 200
-
-### Amber: Proceed With Controls
-
-Triggered when any of the following applies:
-
-- WBGT is 31 degrees Celsius or above
-- PSI is above 100
-- Forecast contains rain, shower, or thunder
-- Rainfall is above 0 mm
-
-Advisory actions:
-
-- Monitor live conditions
-- Apply hydration and rest controls
-- Confirm shelter arrangements
-- Review planned outdoor activities
-
-### Green: Safe to Proceed
-
-Displayed when no Lightning, Hazardous, Red, Amber, or Unknown condition applies.
-
-Advisory actions:
-
-- Outdoor work may proceed under approved controls
-- Continue weather monitoring
-- Maintain hydration
-- Follow approved risk assessments and work procedures
-
-### Unknown: Live Data Incomplete
-
-Displayed when one or more critical feeds are unavailable and no confirmed Red condition exists.
-
-Critical feeds:
+The dashboard selects the nearest valid station separately for:
 
 - WBGT
+- Temperature
+- Humidity
+- Rainfall
+
+This prevents loss of data when a station reports one metric but not another.
+
+---
+
+## MSS Lightning Risk Engine
+
+Lightning observations are assessed relative to ITE College West.
+
+Risk Classification:
+
+- RED ≤ 8 km
+- AMBER > 8 km and ≤ 15 km
+- GREEN > 15 km
+
+Information displayed:
+
+- Nearest observation distance
+- Risk category
+- Payload validation
+- Schema monitoring
+
+---
+
+## WBGT Monitoring
+
+Features:
+
+- Nearest WBGT station selection
+- Heat Stress Class
+- Station Name
+- Station ID
+- Distance from campus
+- Payload validation
+
+Heat Risk Categories:
+
+- HIGH
+- MODERATE
+- LOW
+
+---
+
+## Temperature Monitoring
+
+Features:
+
+- Nearest station selection
+- Temperature value
+- Station distance
+- Payload validation
+
+---
+
+## Relative Humidity Monitoring
+
+Features:
+
+- Nearest station selection
+- Humidity value
+- Station distance
+- Payload validation
+
+---
+
+## Rainfall Monitoring
+
+Features:
+
+- Nearest station selection
+- Rainfall amount
+- Station distance
+- Payload validation
+
+---
+
+## PSI Monitoring
+
+Source:
+
+West Region PSI
+
+Classification:
+
+- Good / Moderate
+- Unhealthy
+- Very Unhealthy
+- Hazardous
+
+---
+
+## Forecast Monitoring
+
+Approved campus forecast areas:
+
+Primary:
+- Choa Chu Kang
+
+Secondary:
+- Tengah
+
+No unrelated forecast area fallback is allowed.
+
+---
+
+# Outdoor Work Advisory Engine
+
+Version 1.6.5a RC1 introduces:
+
+## Primary Hazard
+
+Highest-priority active hazard.
+
+Examples:
+
+- Lightning Within 8 km
+- Lightning Within 15 km
+- High Heat Stress
+- Unhealthy Air Quality
+- Rain Detected Near Campus
+
+Each hazard displays:
+
+- Measurement
+- Trigger
+- Control Basis
+
+---
+
+## Supporting Conditions
+
+Displays up to three additional active conditions.
+
+Examples:
+
+- Heavy Thundery Showers Forecast
+- Rain Detected Near Campus
+- Moderate Heat Stress
+
+---
+
+## Affected Activities
+
+Examples:
+
+- Work at Height
+- Outdoor Events
+- Open-Field Activities
+- Event Setup
+- Strenuous Outdoor Work
+
+---
+
+## Operational Actions
+
+Actions are specific to the currently selected Primary Hazard.
+
+---
+
+## Control Priority
+
+Levels:
+
+- IMMEDIATE ACTION REQUIRED
+- HIGH ATTENTION REQUIRED
+- CONTROLS REQUIRED
+- ROUTINE MONITORING
+- DATA VERIFICATION REQUIRED
+
+---
+
+## Decision Basis
+
+Provides quick operational context:
+
 - Lightning
+- WBGT
 - PSI
 - Forecast
 
-Dashboard response:
+Supports:
 
-- `LIVE DATA INCOMPLETE` banner
-- Grey unknown-risk indicators
-- Warning not to interpret missing data as safe conditions
-- Direction to check official weather and lightning information
+- Shift handovers
+- Incident reviews
+- Management reporting
+- EHS documentation
 
-## Dashboard Health States
+---
 
-| State | Meaning |
-|---|---|
-| Initialising | First live-data cycle is loading |
-| Refreshing | A refresh cycle is in progress |
-| Healthy | All configured data sources are available |
-| Degraded | One or more data sources are rate limited, unavailable, or not mapped |
+# Payload Validation
 
-## API Health States
+Permanent validation:
 
-| Status | Display | Meaning |
-|---|---|---|
-| `LOADING` | Refresh icon | Request not completed |
-| `OK` | Green check | Data source completed successfully |
-| `RATE_LIMITED` | Warning icon | API returned HTTP 429 |
-| `MAPPING_UNAVAILABLE` | Warning icon | API responded, but no approved forecast area was returned |
-| `UNAVAILABLE` | Cross icon | Network, HTTP, payload, or parsing failure |
+- MSS Lightning
+- WBGT
+- Temperature
+- Humidity
+- Rainfall
 
-## Data Sources
+Validation checks:
 
-The dashboard uses these data.gov.sg real-time endpoints:
+- Schema structure
+- Station availability
+- Reading availability
+- Station matching
+- Coordinate availability
+- Distance calculation
 
-```text
-WBGT
-https://api-open.data.gov.sg/v2/real-time/api/weather?api=wbgt
+---
 
-Lightning
-https://api-open.data.gov.sg/v2/real-time/api/weather?api=lightning
+# Refresh Behaviour
 
-PSI
-https://api-open.data.gov.sg/v2/real-time/api/psi
+Automatic Refresh:
 
-2-Hour Forecast
-https://api-open.data.gov.sg/v2/real-time/api/two-hr-forecast
+5 minutes
 
-Air Temperature
-https://api-open.data.gov.sg/v2/real-time/api/air-temperature
+Manual Refresh:
 
-Relative Humidity
-https://api-open.data.gov.sg/v2/real-time/api/relative-humidity
+Refresh Now
 
-Rainfall
-https://api-open.data.gov.sg/v2/real-time/api/rainfall
-```
+Controls:
 
-## Technology
+- Active refresh lock
+- Queued refresh protection
+- API rate limit handling
 
-- HTML5
-- CSS3
-- JavaScript
-- Fetch API
-- GitHub Pages
-- data.gov.sg real-time APIs
+---
 
-No framework, build tool, server, database, or client-side API key is required for the current release.
+# Dashboard Health
 
-## Repository Structure
+States:
 
-```text
-/
-├── index.html
-├── README.md
-├── CHANGELOG.md
-└── RELEASE_NOTES_v1.5.7.md   optional
-```
+- INITIALISING
+- REFRESHING
+- HEALTHY
+- DEGRADED
 
-## GitHub Pages Deployment
+API States:
 
-1. Back up the current production `index.html`.
-2. Create a stable branch for the previous release.
-3. Upload the v1.5.7 file as `index.html` in the repository root.
-4. Commit the update to the deployment branch.
-5. Confirm GitHub Pages uses the deployment branch and root folder.
-6. Open the published dashboard.
-7. Perform a hard refresh.
-8. Confirm that all seven API feeds complete one refresh cycle.
-9. Confirm that the footer and System Health panel show the expected state.
+- OK
+- LOADING
+- RATE LIMITED
+- UNAVAILABLE
+- MAPPING UNAVAILABLE
 
-### Hard Refresh
+---
 
-- Windows Chrome or Edge: `Ctrl + Shift + R` or `Ctrl + F5`
-- With Developer Tools open: select **Network**, enable **Disable cache**, and refresh
+# Data Sources
 
-## Manual Refresh
+Meteorological Service Singapore (MSS)
 
-Select **Refresh Now** to request an immediate refresh.
+National Environment Agency (NEA)
 
-The control is disabled during an active refresh. If another refresh request occurs during an active cycle, one additional refresh is queued. Multiple repeated requests do not create a refresh storm.
+Platform:
 
-## Test Mode
+data.gov.sg
 
-The script includes controlled test switches:
+---
 
-```javascript
-const TEST_MODE = {
-    LIGHTNING: false,
-    PSI: false,
-    WBGT: false,
-    RAINFALL: false
-};
-```
+# Release Assessment
 
-- `false` means live production mode.
-- `true` means simulated test mode for that metric.
-- Set all switches to `false` before production deployment.
+Version:
+1.6.5a RC1
 
-### Lightning Test
+Assessment:
 
-```javascript
-TEST_MODE.LIGHTNING = true;
-```
+Pilot Ready
 
-Expected result:
+Focus Areas During Pilot:
 
-- Lightning count is simulated
-- Lightning icon blinks
-- Lightning count blinks
-- Main banner blinks
-- Overall risk becomes Red
-- Lightning-specific advisory appears
+- Location selection accuracy
+- Advisory usefulness
+- Control Priority accuracy
+- Forecast mapping
+- Validation failures
+- API behaviour
 
-Restore:
+---
 
-```javascript
-TEST_MODE.LIGHTNING = false;
-```
+# Maintainer
 
-## Deployment Acceptance Checks
+Kelvin Siow
 
-Confirm the following after deployment:
-
-- Version label shows `1.5.7`
-- Site Region shows `WEST`
-- Region selector is not displayed
-- WBGT loads
-- Lightning loads
-- PSI West loads
-- Forecast uses Choa Chu Kang or Tengah
-- Temperature station metadata loads
-- Humidity station metadata loads
-- Rainfall station metadata loads
-- API health labels are visible
-- Dashboard health state is visible
-- Manual refresh works
-- Last successful update changes after refresh
-- Next scheduled refresh is displayed
-- No JavaScript syntax error appears in the browser Console
-
-## Known Limitations
-
-- Lightning observations are Singapore-wide and are not distance-filtered for ITE College West.
-- The lightning count does not confirm an official campus lightning warning.
-- External API availability and rate limits may affect individual readings.
-- Station selection depends on the station metadata and data returned by the API.
-- Approximate station distance is used for selection and display, not for regulatory or survey purposes.
-- Forecast mapping uses only Choa Chu Kang and Tengah. If neither area is returned, the dashboard shows `MAPPING UNAVAILABLE`.
-- The dashboard is not the sole basis for starting, continuing, suspending, or resuming work.
-
-## Branch and Release Workflow
-
-Recommended branches:
-
-```text
-main            Active deployment or development
-stable-v1.5.6   Previous reliability baseline
-stable-v1.5.7   Operational Awareness Enhancement baseline
-```
-
-Recommended release process:
-
-1. Confirm the live dashboard works.
-2. Create a stable branch.
-3. Test changes outside the stable branch.
-4. Validate API, safety, and health states.
-5. Deploy only after acceptance checks pass.
-6. Retain the previous stable release for rollback.
-
-## Version Summary
-
-| Version | Focus |
-|---|---|
-| 0.1 | Static prototype |
-| 1.0 | Live WBGT and lightning |
-| 1.1 | PSI and forecast integration |
-| 1.2 | Safety logic and Outdoor Work Advisory |
-| 1.3 | Temperature, humidity, and rainfall |
-| 1.4 | Visualisation and rate-limit controls |
-| 1.5.3 | Lightning Operations Enhancement |
-| 1.5.4 | Data Integrity Enhancement |
-| 1.5.5 | Operations Visibility Enhancement |
-| 1.5.6 | Reliability Hardening |
-| 1.5.7 | Operational Awareness Enhancement |
-
-See [`CHANGELOG.md`](CHANGELOG.md) for detailed changes.
-
-## Operational Disclaimer
-
-This dashboard is a monitoring and decision-support aid. Weather and environmental data may be delayed, unavailable, incomplete, corrected later, or subject to API limitations.
-
-Users remain responsible for applying:
-
-- Approved risk assessments
-- Safe work procedures
-- Work Authorisations
-- Permits-to-Work
-- Official lightning alerts
-- Heat stress controls
-- Haze response measures
-- Emergency procedures
-- Supervisor and management instructions
-
-## Maintainer
-
-Created and maintained for ITE College West EHS and Facilities Operations.
-
-**Created by Kelvin Siow**
+ITE College West
+C&W Services (S) Pte Ltd

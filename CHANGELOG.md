@@ -1,5 +1,292 @@
 # Changelog
 
+---
+
+# Version 1.6.5a RC1
+
+Release Name:
+Pilot Release Candidate
+
+Release Date:
+September 2026
+
+Status:
+Pilot Ready
+
+---
+
+## Added
+
+### Primary Hazard Engine
+
+Introduced operational hazard prioritisation.
+
+Primary hazards include:
+
+- Lightning Within 8 km
+- Lightning Within 15 km
+- High Heat Stress
+- Moderate Heat Stress
+- Air Quality Events
+- Rain Detected
+- Wet Weather Forecast
+- Live Data Incomplete
+
+---
+
+### Supporting Conditions
+
+Added secondary condition visibility.
+
+Displays:
+
+- Additional hazards
+- Forecast conditions
+- Rain conditions
+- Air quality conditions
+
+Maximum displayed:
+
+3
+
+---
+
+### Affected Activities
+
+Added operational impact section.
+
+Examples:
+
+- Work at Height
+- Outdoor Events
+- Open-Field Activities
+- Event Setup
+- Strenuous Outdoor Work
+
+---
+
+### Decision Basis
+
+Added operational evidence panel.
+
+Displays:
+
+- Lightning distance
+- WBGT
+- PSI West
+- Forecast
+
+Supports:
+
+- Incident documentation
+- Shift handovers
+- Management reviews
+
+---
+
+### Enhanced Trigger Visibility
+
+Primary Hazard now displays:
+
+Measurement
+
+Trigger
+
+Control
+
+Example:
+
+Lightning Within 8 km
+
+Measurement:
+0.6 km
+
+Trigger:
+Distance ≤ 8.0 km
+
+Control:
+Immediate Lightning Control
+
+---
+
+## Changed
+
+### Advisory Engine
+
+Old:
+
+Cause-Based Advisory
+
+New:
+
+Hazard and Control Priority Engine
+
+---
+
+### Lightning Terminology
+
+Removed:
+
+Lightning Near Campus
+
+Lightning Approaching Campus
+
+Added:
+
+Lightning Within 8 km
+
+Lightning Within 15 km
+
+---
+
+### Forecast Terminology
+
+Removed:
+
+Wet Weather Forecast
+
+Added:
+
+Actual forecast label
+
+Examples:
+
+Heavy Thundery Showers Forecast
+
+Showers Forecast
+
+Light Rain Forecast
+
+---
+
+### Control Priority Labels
+
+Old:
+
+IMMEDIATE
+
+HIGH
+
+MEDIUM
+
+ROUTINE
+
+DATA CHECK
+
+New:
+
+IMMEDIATE ACTION REQUIRED
+
+HIGH ATTENTION REQUIRED
+
+CONTROLS REQUIRED
+
+ROUTINE MONITORING
+
+DATA VERIFICATION REQUIRED
+
+---
+
+## Retained
+
+### MSS Lightning Engine
+
+- Location-based assessment
+- Distance calculation
+- Payload validation
+- Schema monitoring
+
+---
+
+### WBGT Engine
+
+- Nearest station selection
+- Validation
+- Station distance calculation
+
+---
+
+### Campus-Based Station Selection
+
+Retained:
+
+- Temperature
+- Humidity
+- Rainfall
+
+---
+
+### Forecast Mapping
+
+Retained:
+
+- Choa Chu Kang
+- Tengah
+
+No unrelated forecast-area fallback.
+
+---
+
+### Validation Framework
+
+Retained:
+
+- WBGT Validation
+- Lightning Validation
+- Temperature Validation
+- Humidity Validation
+- Rainfall Validation
+
+---
+
+# Release Readiness
+
+Critical Bugs:
+0
+
+Major Bugs:
+0
+
+Minor Issues:
+2
+
+Production Impact:
+None
+
+Assessment:
+
+Pilot Ready
+
+Confidence:
+
+98%
+
+---
+
+# Previous Releases
+
+1.6.5a
+Advisory Wording Refinement
+
+1.6.5
+Hazard and Control Priority Engine
+
+1.6.4
+Cause-Based Advisory Engine
+
+1.6.3
+Campus-Specific Weather Station Selection
+
+1.6.2
+Nearest WBGT Station Selection
+
+1.6.1
+WBGT Payload Validation
+
+1.6.0
+MSS Location-Based Lightning Risk
+
+
 All notable changes to the ITE College West Weather Dashboard are recorded in this file.
 
 ## [1.5.7] - Operational Awareness Enhancement
