@@ -9,7 +9,7 @@
 </style>
 </head>
 <body>
-<header class="header"><div><h1>ITE College West Weather &amp; Outdoor Work Dashboard</h1><div class="version">Version 1.6.5a RC1 | Pilot Release Candidate</div></div><div class="clock"><strong id="clock">Loading time...</strong><div class="site">SITE REGION<br>WEST</div><button id="manualRefresh" class="refresh">Refresh Now</button></div></header>
+<header class="header"><div><h1>ITE College West Weather &amp; Outdoor Work Dashboard</h1><div class="version">Version 1.7.0 RC1 | Pilot Release Candidate</div></div><div class="clock"><strong id="clock">Loading time...</strong><div class="site">SITE REGION<br>WEST</div><button id="manualRefresh" class="refresh">Refresh Now</button></div></header>
 <section id="banner">CHECKING LIVE CONDITIONS</section>
 <section class="summary"><div><span class="label">WBGT</span><strong id="summaryWBGT">Loading...</strong></div><div><span class="label">PSI WEST</span><strong id="summaryPSI">Loading...</strong></div><div><span class="label">1-HR PM2.5</span><strong id="summaryPM25">Loading...</strong></div><div><span class="label">Nearest Lightning</span><strong id="summaryLightning">Loading...</strong></div><div><span class="label">Forecast</span><strong id="summaryForecast">Loading...</strong></div></section>
 <main class="grid">
@@ -41,7 +41,7 @@
  - Adds eligible-for-resumption review state and supervisor confirmation
  - Adds local-device audit timestamps for red, amber, clearance start and successful checks
  - Adds NEA 1-hour PM2.5 West monitoring and current-condition haze controls
- - Retains all v1.6.5a hazard, priority, location and validation logic
+ - Consolidates retained hazard, priority, location and validation logic into v1.7.0 RC1
 */
 const REFRESH_INTERVAL_MS=300000,REQUEST_GAP_MS=1800;
 const TEST_MODE={LIGHTNING:false,PSI:false,PM25:false,WBGT:false,RAINFALL:false};

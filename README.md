@@ -1,358 +1,126 @@
 # ITE College West Weather & Outdoor Work Dashboard
 
-Version: 1.6.5a RC1
-
-Release Name:
-Pilot Release Candidate
+## Version
+**v1.7.0 RC1**
 
 ## Purpose
+The dashboard provides real-time decision support for outdoor work, PE lessons, grounds maintenance, security operations, campus events and contractor activities at ITE College West.
 
-This dashboard provides live weather intelligence and outdoor work decision support for ITE College West.
+## Core Functions
+- WBGT monitoring
+- Lightning monitoring
+- PM2.5 monitoring
+- PSI monitoring
+- Rainfall monitoring
+- Temperature monitoring
+- Humidity monitoring
+- 2-Hour Weather Forecast
+- Outdoor Work Advisory Engine
+- Risk Matrix
 
-The dashboard consolidates:
+## Data Sources
+- Data.gov.sg
+- National Environment Agency (NEA)
+- Meteorological Service Singapore (MSS)
 
-- MSS Lightning
+## APIs
 - WBGT
-- Temperature
+- Lightning
+- PSI (24-Hour)
+- PM2.5 (1-Hour)
+- 2-Hour Forecast
+- Air Temperature
 - Relative Humidity
 - Rainfall
-- PSI (West Region)
-- 2-Hour Forecast
 
-The objective is to support:
-
-- Outdoor work planning
-- Facilities Management operations
-- Grounds maintenance
-- Sports activities
-- Campus events
-- Contractor management
-- EHS monitoring
-- Emergency preparedness
-
-The dashboard is a decision-support tool and does not replace:
-
-- Approved risk assessments
-- Work Authorisation controls
-- Permit-to-Work requirements
-- MSS Lightning Alerts
-- Supervisor instructions
-- Emergency response procedures
-
----
-
-# Current Release
-
-Version:
-1.6.5a RC1
-
-Release Status:
-Pilot Release Candidate
-
----
-
-# Major Features
-
-## Campus-Aware Data Selection
-
-Reference Location:
-
-ITE College West
-
-Latitude:
-1.3764369
-
-Longitude:
-103.7523055
-
-The dashboard selects the nearest valid station separately for:
-
-- WBGT
-- Temperature
-- Humidity
-- Rainfall
-
-This prevents loss of data when a station reports one metric but not another.
-
----
-
-## MSS Lightning Risk Engine
-
-Lightning observations are assessed relative to ITE College West.
-
-Risk Classification:
-
-- RED ≤ 8 km
-- AMBER > 8 km and ≤ 15 km
-- GREEN > 15 km
-
-Information displayed:
-
-- Nearest observation distance
-- Risk category
-- Payload validation
-- Schema monitoring
-
----
-
-## WBGT Monitoring
-
-Features:
-
-- Nearest WBGT station selection
-- Heat Stress Class
-- Station Name
-- Station ID
-- Distance from campus
-- Payload validation
-
-Heat Risk Categories:
-
-- HIGH
-- MODERATE
-- LOW
-
----
-
-## Temperature Monitoring
-
-Features:
-
-- Nearest station selection
-- Temperature value
-- Station distance
-- Payload validation
-
----
-
-## Relative Humidity Monitoring
-
-Features:
-
-- Nearest station selection
-- Humidity value
-- Station distance
-- Payload validation
-
----
-
-## Rainfall Monitoring
-
-Features:
-
-- Nearest station selection
-- Rainfall amount
-- Station distance
-- Payload validation
-
----
-
-## PSI Monitoring
-
-Source:
-
-West Region PSI
-
-Classification:
-
-- Good / Moderate
-- Unhealthy
-- Very Unhealthy
-- Hazardous
-
----
-
-## Forecast Monitoring
-
-Approved campus forecast areas:
-
-Primary:
-- Choa Chu Kang
-
-Secondary:
-- Tengah
-
-No unrelated forecast area fallback is allowed.
-
----
-
-# Outdoor Work Advisory Engine
-
-Version 1.6.5a RC1 introduces:
-
-## Primary Hazard
-
-Highest-priority active hazard.
-
-Examples:
-
-- Lightning Within 8 km
-- Lightning Within 15 km
-- High Heat Stress
-- Unhealthy Air Quality
-- Rain Detected Near Campus
-
-Each hazard displays:
-
-- Measurement
-- Trigger
-- Control Basis
-
----
-
-## Supporting Conditions
-
-Displays up to three additional active conditions.
-
-Examples:
-
-- Heavy Thundery Showers Forecast
-- Rain Detected Near Campus
-- Moderate Heat Stress
-
----
-
-## Affected Activities
-
-Examples:
-
-- Work at Height
-- Outdoor Events
-- Open-Field Activities
-- Event Setup
-- Strenuous Outdoor Work
-
----
-
-## Operational Actions
-
-Actions are specific to the currently selected Primary Hazard.
-
----
-
-## Control Priority
-
-Levels:
-
-- IMMEDIATE ACTION REQUIRED
-- HIGH ATTENTION REQUIRED
-- CONTROLS REQUIRED
-- ROUTINE MONITORING
-- DATA VERIFICATION REQUIRED
-
----
-
-## Decision Basis
-
-Provides quick operational context:
-
-- Lightning
-- WBGT
-- PSI
-- Forecast
-
-Supports:
-
-- Shift handovers
-- Incident reviews
-- Management reporting
-- EHS documentation
-
----
-
-# Payload Validation
-
-Permanent validation:
-
-- MSS Lightning
-- WBGT
-- Temperature
-- Humidity
-- Rainfall
-
-Validation checks:
-
-- Schema structure
-- Station availability
-- Reading availability
-- Station matching
-- Coordinate availability
-- Distance calculation
-
----
-
-# Refresh Behaviour
-
-Automatic Refresh:
-
-5 minutes
-
-Manual Refresh:
-
-Refresh Now
-
-Controls:
-
-- Active refresh lock
-- Queued refresh protection
-- API rate limit handling
-
----
-
-# Dashboard Health
-
-States:
-
-- INITIALISING
-- REFRESHING
-- HEALTHY
-- DEGRADED
-
-API States:
-
-- OK
-- LOADING
-- RATE LIMITED
-- UNAVAILABLE
-- MAPPING UNAVAILABLE
-
----
-
-# Data Sources
-
-Meteorological Service Singapore (MSS)
-
-National Environment Agency (NEA)
-
-Platform:
-
-data.gov.sg
-
----
-
-# Release Assessment
-
-Version:
-1.6.5a RC1
-
-Assessment:
-
-Pilot Ready
-
-Focus Areas During Pilot:
-
-- Location selection accuracy
-- Advisory usefulness
-- Control Priority accuracy
-- Forecast mapping
-- Validation failures
-- API behaviour
-
----
-
-# Maintainer
-
+## Air Quality Logic
+### PSI
+Purpose: Next-day planning.
+
+### PM2.5
+Purpose: Immediate outdoor activity decision making.
+
+### PM2.5 Thresholds
+| PM2.5 (µg/m³) | Status | Action |
+|---|---|---|
+| 0-55 | Normal | Normal activities |
+| 56-150 | Elevated | Reduce strenuous outdoor activity |
+| 151-250 | High | Avoid strenuous outdoor activity |
+| ≥251 | Very High | Minimise outdoor activity |
+
+### Air Quality Risk Calculation
+The dashboard adopts the more restrictive condition between PSI and PM2.5.
+
+## Lightning Management Logic
+### RED
+Trigger: Lightning ≤8 km
+
+Actions:
+- Stop outdoor activities
+- Suspend work at height
+- Suspend outdoor sports and events
+- Move personnel to shelter
+
+### AMBER
+Trigger: Lightning >8 km and ≤15 km
+
+Actions:
+- Maintain suspension of exposed activities
+- Prepare shelter arrangements
+- Continue monitoring
+
+### GREEN
+Trigger: No lightning within 15 km
+
+Actions:
+- Continue activities under approved controls
+
+## Lightning Clearance Logic (v1.7.0)
+### Clearance Start Conditions
+A 30-minute clearance countdown starts only after a successful MSS lightning update confirms no lightning within 15 km.
+
+### Countdown Reset Conditions
+The countdown is cancelled and restarted when:
+- Lightning ≤8 km is detected.
+- Lightning >8 km and ≤15 km is detected.
+
+### API Failure Lockout
+If lightning data is unavailable:
+- Clearance is blocked.
+- Activities remain suspended.
+- A fresh 30-minute clearance period is required after service recovery.
+
+### Countdown Completion
+At 00:00, the dashboard changes to:
+
+**ELIGIBLE FOR RESUMPTION REVIEW**
+
+Activities do not automatically resume.
+
+### Supervisor Confirmation
+A supervisor must positively confirm resumption before activities restart.
+
+## Audit Records
+The dashboard records:
+- Last ≤8 km detection
+- Last 8-15 km detection
+- Clearance start time
+- Latest successful lightning check
+- Supervisor confirmation time
+
+## Banner Priority
+1. Lightning ≤8 km
+2. Lightning suspension / clearance state
+3. PM2.5 Very High
+4. PSI Very Unhealthy / Hazardous
+5. High Heat Stress
+6. Forecast / Weather Monitoring
+
+## Disclaimer
+Decision-support tool only. Users must follow approved site procedures, risk assessments, official MSS and NEA advisories, and supervisor instructions.
+
+## Author
 Kelvin Siow
-
+EHS Manager
 ITE College West
 C&W Services (S) Pte Ltd
